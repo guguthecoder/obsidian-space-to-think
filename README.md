@@ -107,17 +107,18 @@ Bundled typefaces — **Hanken Grotesk**, **Source Serif 4** and
 
 ## Submitting
 
-Everything in this repository is ready. The remaining step is a PR against
-[`obsidianmd/obsidian-releases`](https://github.com/obsidianmd/obsidian-releases)
-that adds this entry to `community-css-themes.json`:
+Community themes are submitted through the community directory, not a pull
+request:
 
-```json
-{
-  "name": "Space to think",
-  "author": "gugu",
-  "repo": "guguthecoder/obsidian-space-to-think"
-}
-```
+1. Sign in at [community.obsidian.md](https://community.obsidian.md) with an
+   Obsidian account, and link your GitHub account to the profile.
+2. Add this repository and publish.
+
+The directory does **not** read the files from the default branch. It pulls
+`manifest.json` and `theme.css` from the GitHub **release** whose tag matches the
+`version` in `manifest.json`. The `1.0.0` release in this repository is set up
+that way — bumping the version means creating a matching release with those two
+files attached.
 
 ## License
 
