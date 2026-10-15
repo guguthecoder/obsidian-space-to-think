@@ -8,10 +8,13 @@ muted brown-gold accent.
 
 ## Screenshots
 
-| Typography, quotes, lists and tasks | Callouts and tables |
+| Light | Dark |
 |---|---|
-| ![Headings, block quotes, nested lists and task lists](screenshots/02-typography.png) | ![Note, tip and warning callouts above a table](screenshots/03-callouts-table.png) |
-| ![A mermaid flowchart](screenshots/04-mermaid.png) | ![A collapsible callout, a footnote and tags](screenshots/05-footnotes-tags.png) |
+| ![Title, note properties and body text](screenshots/01-overview.png) | ![The same view in dark mode](screenshots/06-dark-overview.png) |
+| ![Headings, block quotes, nested lists and task lists](screenshots/02-typography.png) | ![A python code block and a display equation](screenshots/07-dark-code-math.png) |
+| ![Note, tip and warning callouts above a table](screenshots/03-callouts-table.png) | ![The same callouts and table in dark mode](screenshots/08-dark-callouts-table.png) |
+| ![A mermaid flowchart](screenshots/04-mermaid.png) | ![A mermaid flowchart in dark mode](screenshots/09-dark-mermaid.png) |
+| ![A collapsible callout, a footnote and tags](screenshots/05-footnotes-tags.png) | |
 
 ## Design
 
