@@ -819,12 +819,8 @@ body {
   background-color: var(--scrollbar-active-thumb-bg);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-  }
-}
+/* No `prefers-reduced-motion` block on purpose. This theme defines no
+   transitions or animations of its own, and Obsidian core already honours the
+   user's reduced-motion setting for its own (app.css contains a matching media
+   query). A global `*` clamp would only reach other people's animations, and
+   would need a forced override to do it — which themes are asked to avoid. */
