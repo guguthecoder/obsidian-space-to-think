@@ -678,12 +678,21 @@ body {
   background-color: var(--table-row-background-hover);
 }
 
-/* --callout-color is supplied by Obsidian as a comma-separated triplet, so it
-   is consumed with the legacy rgba() form. */
+/* Callouts.
+   --callout-color is not a stable format: some Obsidian builds expose it as a
+   comma triplet ("42, 120, 214"), others as a hex string ("#086ddd"). The old
+   `rgba(var(--callout-color), a)` form silently becomes an INVALID colour when
+   handed a hex, which drops BOTH the background and the border and leaves the
+   callout looking like plain text.
+   color-mix() accepts either form, and the var() fallback catches the triplet
+   case, where color-mix() cannot parse the value and the custom property ends
+   up guaranteed-invalid. So the theme stays correct on both. */
 .callout {
-  border: 1px solid rgba(var(--callout-color), 0.22);
+  --callout-bg: color-mix(in srgb, var(--callout-color, transparent) 8%, transparent);
+  --callout-line: color-mix(in srgb, var(--callout-color, transparent) 30%, transparent);
+  background-color: var(--callout-bg, var(--background-primary-alt));
+  border: 1px solid var(--callout-line, var(--background-modifier-border));
   border-radius: var(--radius-xl);
-  background-color: rgba(var(--callout-color), 0.08);
   box-shadow: var(--theme-shadow);
 }
 
