@@ -4,6 +4,8 @@ A warm, quiet Obsidian theme. Ivory reading surface, a slightly deeper
 parchment chrome layer, warm hairlines instead of shadows, and a single
 muted brown-gold accent.
 
+If it makes your writing a little easier, you can [buy me a coffee](https://afdian.com/a/guguthecoder) (Afdian, for readers in China) or [send a tip via PayPal](https://paypal.me/guguthecoder) (elsewhere). No pressure — using it and reporting bugs is help enough.
+
 ![Space to think reading view: ivory surface, parchment chrome band, muted gold accent, and a note-properties card.](screenshots/01-overview.png)
 
 ## Screenshots
