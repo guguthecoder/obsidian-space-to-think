@@ -397,8 +397,12 @@ body {
 body {
   --background-primary: var(--pg-surface);
   --background-primary-alt: var(--pg-surface-alt);
-  --background-secondary: var(--pg-chrome);
-  --background-secondary-alt: var(--pg-chrome-alt);
+  /* One paper: there is no second surface. Obsidian still reads these two for
+     menus, popovers, empty leaves and a dozen internal panels, so pointing
+     them at the page colour is what makes the flat look hold everywhere
+     instead of in the four places a screenshot happened to catch. */
+  --background-secondary: var(--pg-surface);
+  --background-secondary-alt: var(--pg-surface-alt);
 
   --background-modifier-hover: var(--pg-hover);
   --background-modifier-active-hover: var(--pg-active-hover);
@@ -448,11 +452,19 @@ body {
   --tag-background: var(--pg-selected);
   --tag-background-hover: var(--pg-tag-bg-hover);
 
-  /* Chrome follows the secondary surface, so neither mode repeats it. */
-  --titlebar-background: var(--pg-chrome);
-  --titlebar-background-focused: var(--pg-chrome);
-  --ribbon-background: var(--pg-chrome);
-  --tab-container-background: var(--pg-chrome);
+  /* One paper. The titlebar and tab strip are the same surface as the note,
+     so the window reads as a single sheet rather than stacked bars. */
+  --titlebar-background: var(--pg-surface);
+  --titlebar-background-focused: var(--pg-surface);
+  --ribbon-background: var(--pg-surface);
+  --tab-container-background: var(--pg-surface);
+  /* Obsidian >= 1.13 drives the bar above the note through these two, and
+     applies the focused one with a 0,0,3,0 selector that beats any plain
+     `.view-header` rule. They default to --background-primary already; naming
+     them here keeps that behaviour explicit so a future Obsidian default
+     cannot quietly put a coloured band above the note again. */
+  --file-header-background: var(--pg-surface);
+  --file-header-background-focused: var(--pg-surface);
   --tab-outline-color: var(--pg-line);
   --tab-text-color: var(--pg-ink-muted);
   --tab-text-color-active: var(--pg-ink);
@@ -499,7 +511,9 @@ body {
   .workspace-ribbon,
   .status-bar
 ) {
-  background-color: var(--background-secondary);
+  /* Sidebars sit on the same paper as the note, not on a tinted chrome
+     layer. The tint is reserved for the tab strip and titlebar. */
+  background-color: var(--background-primary);
   border-color: var(--background-modifier-border);
 }
 
@@ -510,21 +524,29 @@ body {
 
 /* Panes are divided by a hairline, never a shadow. */
 .workspace-split.mod-left-split {
-  border-inline-end: 1px solid var(--background-modifier-border);
+  border-inline-end: 1px solid transparent;
 }
 
 .workspace-split.mod-right-split {
-  border-inline-start: 1px solid var(--background-modifier-border);
+  border-inline-start: 1px solid transparent;
 }
 
 .workspace-ribbon {
   border-inline-end: none;
 }
 
-/* Titlebar and tab strip share the chrome colour. The window buttons keep
-   their hit area but lose every visual box of their own. */
+/* The vault switcher at the foot of the sidebar is Obsidian's own element: it
+   paints --background-secondary and adds a border-top in --tab-outline-color.
+   It needs the full selector to outrank the app's own rule. */
+body:not(.is-mobile) .workspace-split.mod-left-split .workspace-sidedock-vault-profile {
+  background-color: var(--background-primary);
+  border-top-color: transparent;
+}
+
+/* Titlebar and tab strip are the same paper as the note. The window buttons
+   keep their hit area but lose every visual box of their own. */
 .titlebar {
-  background-color: var(--background-secondary);
+  background-color: var(--background-primary);
   border: none;
   box-shadow: none;
 }
@@ -539,13 +561,13 @@ body {
 }
 
 .workspace-tab-header-container {
-  background-color: var(--background-secondary);
+  background-color: var(--background-primary);
   border-bottom: none;
   box-shadow: none;
 }
 
 .workspace-split.mod-root .workspace-tab-header-container {
-  border-bottom: 1px solid var(--background-modifier-border);
+  border-bottom: 1px solid transparent;
 }
 
 /* The active tab has three sides and no bottom, and is pulled down by 1px so
@@ -567,10 +589,14 @@ body {
   color: var(--tab-text-color);
 }
 
-/* The view header belongs to the document, not to the chrome. */
+/* The view header is part of the chrome. Keeping it on --background-primary
+   left a white band above every note, which broke the seamless run from the
+   sidebar through the tab strip into the pane. */
 .view-header {
-  background-color: var(--background-primary);
-  border-color: var(--background-modifier-border);
+  background-color: var(--file-header-background);
+  /* Same colour as the note, so any rule drawn underneath would read as a
+     seam across a single surface. */
+  border-color: transparent;
   box-shadow: none;
 }
 
